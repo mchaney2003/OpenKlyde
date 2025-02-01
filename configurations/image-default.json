@@ -6,6 +6,7 @@
     },
   "parameters": {
     "preprompt": "Masterpiece, best quality, beautiful, intricate, ",
+    "postprompt": "",
     "sampler_name": "DPM++ 2M Karras",
     "steps": 30,
     "cfg_scale": 6.5,

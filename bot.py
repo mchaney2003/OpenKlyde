@@ -429,7 +429,7 @@ async def send_to_stable_diffusion_queue():
         image_prompt = await queue_to_process_image.get()
         
         data = image_api["parameters"]
-        data["prompt"] = data["preprompt"] + image_prompt["response"]
+        data["prompt"] = data["preprompt"] + image_prompt["response"] + data["postprompt"]
         data_json = json.dumps(data)
 
         await functions.write_to_log("Sending prompt from " + image_prompt["content"]["user"] + " to Stable Diffusion model.")
