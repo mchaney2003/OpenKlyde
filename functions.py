@@ -103,6 +103,7 @@ async def create_text_prompt(user_input, user, character, bot, history, reply, t
 
     prompt = character + history + reply + user + \
         ": " + user_input + "\n" + bot + ": "
+    user_stopping_strings = text_api["parameters"]["stop_sequence"]
     stopping_strings = ["\n" + user + ":", user + ":", bot + ":", "You:"]
 
     data = text_api["parameters"]
@@ -112,7 +113,7 @@ async def create_text_prompt(user_input, user, character, bot, history, reply, t
     if text_api["name"] == "openai":
         data.update({"stop": stopping_strings})
     else:
-        data.update({"stop_sequence": stopping_strings})
+        data.update({"stop_sequence": user_stopping_strings + stopping_strings})
 
     data_string = json.dumps(data)
     return data_string
@@ -128,6 +129,7 @@ async def create_text_prompt(user_input, user, character, bot, history, reply, t
     else:
         prompt = character + history + reply + user + \
             ": " + user_input + "\n" + bot + ": "
+    user_stopping_strings = text_api["parameters"]["stop_sequence"]
     stopping_strings = ["\n" + user + ":", user + ":", bot +
                         ":", "You:", "@Ava", "User", "@" + user, "<|endoftext|>"]
 
@@ -144,7 +146,7 @@ async def create_text_prompt(user_input, user, character, bot, history, reply, t
         data.update({"messages": messages})
     else:
         data.update({"prompt": prompt})
-        data.update({"stop_sequence": stopping_strings})
+        data.update({"stop_sequence": user_stopping_strings + stopping_strings})
 
     data_string = json.dumps(data)
     return data_string
@@ -160,6 +162,7 @@ async def create_text_prompt(user_input, user, character, bot, history, reply, t
     else:
         prompt = character + history + reply + user + \
             ": " + user_input + "\n" + bot + ": "
+    user_stopping_strings = text_api["parameters"]["stop_sequence"]
     stopping_strings = ["\n" + user + ":", user + ":", bot +
                         ":", "You:", "@Ava", "User", "@" + user, "<|endoftext|>"]
 
@@ -176,7 +179,7 @@ async def create_text_prompt(user_input, user, character, bot, history, reply, t
         data.update({"messages": messages})
     else:
         data.update({"prompt": prompt})
-        data.update({"stop_sequence": stopping_strings})
+        data.update({"stop_sequence": user_stopping_strings + stopping_strings})
 
     data_string = json.dumps(data)
     return data_string
